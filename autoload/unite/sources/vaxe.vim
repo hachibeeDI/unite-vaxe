@@ -11,15 +11,15 @@ let s:unite_source = {
 
 
 let s:vaxe_commands = {
-      \ 'open_hxml': 'call vaxe#OpenHxml()'
-      \ 'ctags': 'call vaxe#Ctags()'
-      \ 'auto_import': 'call vaxe#ImportClass()'
-      \ 'project_hxml': 'call vaxe#ProjectHxml()'
-      \ 'jump_to_def': 'call vaxe#JumpToDefinition()'
-}
+      \ 'open_hxml': 'call vaxe#OpenHxml()',
+      \ 'ctags': 'call vaxe#Ctags()',
+      \ 'auto_import': 'call vaxe#ImportClass()',
+      \ 'project_hxml': 'call vaxe#ProjectHxml()',
+      \ 'jump_to_def': 'call vaxe#JumpToDefinition()',
+      \ }
 
-function! s:get_vaxe_commands(key)
-  return s:vaxe_commands[key]
+function! s:get_vaxe_commands(k)
+  return s:vaxe_commands[a:k]
 endfunction
 
 
@@ -30,14 +30,14 @@ function! s:unite_source.gather_candidates(args, context)
         \ 'auto_import',
         \ 'project_hxml',
         \ 'jump_to_def',
-  ]
+        \ ]
 
   " "action__type" is necessary to avoid being added into cmdline-history.
   return map(vaxe_commands, '{
-        \ "word": v:val[0],
+        \ "word": v:val,
         \ "source": "vaxe",
         \ "kind": ["command"],
-        \ "action__command": s:get_vaxe_commands(v:val[0]),
+        \ "action__command": s:get_vaxe_commands(v:val),
         \ }')
 endfunction
 
